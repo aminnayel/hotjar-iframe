@@ -191,9 +191,195 @@ if(document.location.pathname !== '/thank-you/') {
  fbq('track', 'PageView');
 }
 </script>
+<!-- /////////////////////// -->
+
+<!-- END fb:: 434832602940315 CODE --><!-- everflowTagByConfig-->
+<script type="text/javascript" src="https://www.hzbfe8trk.com/scripts/sdk/everflow.js"></script><script>
+  function checkDebug(){if(!1===window.be_quiet)return!0;if(!1===window.checkDebugValue)return!1;if(window.checkDebugValue)return!0;return"1"===new URLSearchParams(window.location.search).get("elog")?window.checkDebugValue=!0:window.checkDebugValue=!1,window.checkDebugValue}
+          function elog(e,c){c?console.log(e):checkDebug()&&console.log(e)}function tracking_ready() { return ("object" == typeof EF) }
+  
+  function setTrackId(e) {
+      elog("****SET efcid:" + e,window.trackDebug);
+      window.trackingInfo.unid = e;
+      wlmdSetCookie("efcid", e, 7);
+      //window.trackingInfo.finished=1;
+      window.trackingInfo.codeset = 1;
+      wlmdSetCookie("wlmd_tracking_unid", e, 7);
+      elog("****Finished set efcid:" + e, window.trackDebug);
+  }
+  function useTrackId(e) {
+      elog("****USE efcid:" + e);
+      window.trackingInfo.unid = e;
+      //wlmdSetCookie("efcid", e);
+      window.trackingInfo.codeset = 1;
+      //wlmdSetCookie("wlmd_tracking_unid", e, 7);
+      elog("****Finished set efcid:" + e);
+  }
+  
+  window.trackDebug = false;
+  
+  
+  function everflowClickTracking(default_affiliate, adid, oid) {
+      
+      debug = window.trackDebug;
+      if(EF.urlParameter("_ef_reset") == "1") {
+         setTrackId("");
+         setCookie("efcid","");
+         console.log("****RESET OP DONE");
+      }
+      
+      if(typeof ovr_everflowClickTracking == "function") {
+        elog("ovr_everflowClickTracking",debug);
+        return ovr_everflowClickTracking(default_affiliate, adid, oid);
+      }
+      var ext = getCookie("efcid");
+  
+      if(EF.urlParameter("oid")) {
+          oid = EF.urlParameter("oid");
+          elog("url oid=" + oid,debug);
+      } 
+      if(EF.urlParameter("affid2")) {
+         elog("_efct-URLAFFID2 " + EF.urlParameter("affid2"), debug);
+         performEFC(EF.urlParameter("affid2"),oid);
+      } else if(EF.urlParameter("affid")) {
+         elog("_efct-URLAFFID " + EF.urlParameter("affid"), debug);
+         performEFC(EF.urlParameter("affid"),oid);
+         elog(" hoping for performEFC to finish... ", debug);
+      } else if(EF.urlParameter("_ef_transaction_id")) {
+         elog("_efct-_ef_transaction_id " + EF.urlParameter("_ef_transaction_id"),debug);
+         performEFC("",oid);
+      } else if(!ext) {
+         elog("_efct-no ext default_affiliate: " + default_affiliate, debug);
+         performEFC(default_affiliate,oid);
+      } else {
+         elog("_efct-ext found: " + ext, debug);
+         useTrackId(ext);
+      }
+      elog("_efct-fin",debug);
+  }
+  function performEFC(affid, oid) {
+      elog("started performEFC(" + affid + ", " + oid + ")",window.trackDebug);
+      EF.click({
+        offer_id: oid,
+        affiliate_id: affid,
+        sub1: EF.urlParameter("sub1"),
+        sub2: EF.urlParameter("sub2"),
+        sub3: EF.urlParameter("sub3"),
+        sub4: EF.urlParameter("sub4"),
+        sub5: EF.urlParameter("sub5"),
+        uid: EF.urlParameter("uid"),
+        source_id: EF.urlParameter("source_id"), 
+        transaction_id: EF.urlParameter("_ef_transaction_id")
+      }).then(function(e) {
+           elog("about to setTrackId " + e, window.trackDebug);
+           setTrackId(e);
+           elog("****tracked",window.trackDebug);
+                    
+      }).catch(function(e) {
+          console.error("error in performEFC",e);
+      }).finally(function(e) {
+          //console.log("Ended click chain");
+          //console.log(e);
+      });
+  }
+  
+  window.trackingInfo || (window.trackingInfo = {
+      loop: 0,
+      ready: 0,
+      started: 0,
+      finished: 0,
+      codeset: 0,
+      unid: ""
+  });
+  
+  function everflowCheckoutTrackingString() {
+      return "click_id=" + getEverflowTrackingCookie()
+  }
+  
+  function tracking_start() {
+      elog("++++about to run everflowClickTracking");	
+      try {
+           everflowClickTracking("2", "1", "3")
+      } catch (o) {
+          console.log("tracking_start() error:");
+          console.log(o);
+          console.error(o.error);
+      }
+  }
+  </script>
+  <script type="text/javascript" src="https://jointrim-wp.wlmd.dev/wp-content/uploads/common/wlmd-intake-func-v4.7.js"></script>
+      <script>
+      /* set sku here, if chosen */
+      window.page_presets = {
+        "productRequested": ""
+      };
+      window.page_presets["caller_page"] = urlNoHash(); //window.location.hostname + window.location.pathname + window.location.search;
+      </script><script>
+      function checkoutTrackingString() {
+          var ret = ""; var tmp="";
+          ret += everflowCheckoutTrackingString();
+          if(typeof checkoutTrackingStringSite === "function") {
+            tmp = checkoutTrackingStringSite();
+            if(tmp) {if(ret){ret += "&" + tmp;}else{ret=tmp;}}
+          }
+          return ret; 
+      }</script><style>#intake_placement iframe {min-width: 100% !important;}
+  #myModal-mdl {z-index: 9999999999999999 !important;}
+  #intake_placement iframe {min-width: 100% !important;}</style>
+  <!--BEGIN settings-header_html -->
+  <style>#intake_placement iframe {
+    min-width: 100% !important;
+  }
+  #myModal-mdl {
+  z-index: 9999999999999999 !important;
+  }
+  #intake_placement iframe {min-width: 100% !important;}
+  #intake_placement iframe {background-color: white !important;}
+  @media only screen and (min-width: 1350px) {
+    .form-all {
+      width: 100% !important;
+    }
+  }
+  
+  
+  section#brxe-mbplze {
+      background-color: white !important;
+  }
+  section.nonheader-brxe-section {
+     background-color: white !important;
+  } 
+  .form-all {
+    box-shadow: none !important;
+  }
+  select.form-dropdown {
+      padding-top: 0px !important;
+  }
+  </style>
+  
+  <!-- no wlmd_cfg_tracking_args: null -->
+  <!-- END  settings-header_html -->
+  <!-- * End snippet by: wlmdHeaderSnippet -->
+  <link rel="icon" href="https://jointrim-wp.wlmd.dev/wp-content/uploads/2024/05/trim-favicon.png" sizes="32x32" />
+  <link rel="icon" href="https://jointrim-wp.wlmd.dev/wp-content/uploads/2024/05/trim-favicon.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="https://jointrim-wp.wlmd.dev/wp-content/uploads/2024/05/trim-favicon.png" />
+  <meta name="msapplication-TileImage" content="https://jointrim-wp.wlmd.dev/wp-content/uploads/2024/05/trim-favicon.png" />
+  
+  <!-- Facebook Open Graph (by Bricks) -->
+  <meta property="og:url" content="https://jointrim-wp.wlmd.dev/preselection-intake-inline/" />
+  <meta property="og:site_name" content="Trim" />
+  <meta property="og:title" content="Preselection Intake Inline" />
+  <meta property="og:type" content="website" />
+  </head>
+  
+  <body class="page-template-default page page-id-641 brx-body bricks-is-frontend wp-embed-responsive">		<a class="skip-link" href="#brx-content" aria-label="Skip to main content">Skip to main content</a>
+  
+                      <a class="skip-link" href="#brx-footer" aria-label="Skip to footer">Skip to footer</a>
+              <header id="brx-header"><section id="brxe-iczmwg" class="brxe-section bricks-lazy-hidden"><div id="brxe-fjbwdz" class="brxe-container bricks-lazy-hidden"><a id="brxe-nnixiz" href="/" class="brxe-block bricks-lazy-hidden"><a id="brxe-tujcti" class="brxe-logo" href="https://jointrim-wp.wlmd.dev"><img width="320" height="91" src="https://jointrim-wp.wlmd.dev/wp-content/uploads/2024/07/JoinTrim-Logo-zoomed-1.png" class="bricks-site-logo css-filter" alt="Trim" loading="eager" decoding="async" srcset="https://jointrim-wp.wlmd.dev/wp-content/uploads/2024/07/JoinTrim-Logo-zoomed-1.png 320w, https://jointrim-wp.wlmd.dev/wp-content/uploads/2024/07/JoinTrim-Logo-zoomed-1-300x85.png 300w" sizes="(max-width: 320px) 100vw, 320px" /></a></a><nav id="brxe-vfwngs" data-script-id="vfwngs" class="brxe-nav-nested nav-menu bricks-lazy-hidden" aria-label="Menu" data-toggle="mobile_landscape"><ul id="brxe-ueczov" class="brxe-block nav-menu__items brx-nav-nested-items bricks-lazy-hidden"><li id="brxe-xjmatv" data-script-id="xjmatv" class="brxe-dropdown bricks-lazy-hidden"><div class="brx-submenu-toggle"><span>Weight Loss</span><button aria-expanded="false" aria-label="Toggle dropdown"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="none"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></button></div><ul id="brxe-xgstay" class="brxe-div brx-dropdown-content bricks-lazy-hidden"><li class="menu-item"><a id="brxe-qinazp" class="brxe-text-link nav-menu__link" href="https://jointrim-wp.wlmd.dev/tirzepatide/">Tirzepatide</a></li><li class="menu-item"><a id="brxe-ajawlg" class="brxe-text-link nav-menu__link" href="https://jointrim-wp.wlmd.dev/semaglutide/">Semaglutide</a></li><li class="menu-item"><a id="brxe-ffylmp" class="brxe-text-link nav-menu__link" href="https://jointrim-wp.wlmd.dev/oral-semaglutide/">Oral Semaglutide</a></li></ul></li><li class="menu-item"><a id="brxe-kxdkms" class="brxe-text-link nav-menu__link" href="https://jointrim-wp.wlmd.dev/contact-us/">Contact</a></li><li class="menu-item"><a id="brxe-fiziri" class="brxe-text-link nav-menu__link" href="https://jointrim-wp.wlmd.dev/about/">About</a></li><li class="menu-item"><a id="brxe-wtsjat" class="brxe-text-link nav-menu__link" href="https://jointrim-wp.wlmd.dev/faq/">FAQs</a></li><li class="menu-item"><a id="brxe-lxckfe" class="brxe-text-link nav-menu__link" href="https://jointrim-wp.wlmd.dev/blog/">Blog</a></li><li class="menu-item"><a id="brxe-iwhvll" class="brxe-button btn-primary bricks-button bricks-background-primary" href="https://member.jointrim.com/">Log in</a></li></ul><button id="brxe-evogbw" data-script-id="evogbw" class="brxe-toggle brxa--boring" aria-label="Open" aria-expanded="false"><span class="brxa-wrap"><span class="brxa-inner"></span></span></button></nav></div></section><div id="brxe-egqljs" class="brxe-block bricks-lazy-hidden"></div></header><main id="brx-content"><section id="brxe-acc5dc" class="brxe-section bricks-lazy-hidden"><div id="brxe-1088ab" class="brxe-container bricks-lazy-hidden"><div id="brxe-9aaeba" data-script-id="9aaeba" class="brxe-code">
 
 
-   <iframe  width="100%" height="100%" src="https://aminnayel.github.io/hotjar-iframe/form.html"></iframe>
+
+<!-- ///////////////////////////// -->
+   <iframe id="242194589812971"  width="100%" height="100%" src="https://aminnayel.github.io/hotjar-iframe/form.html"></iframe>
    <!-- iframe where form lives here -->
 
 
